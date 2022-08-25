@@ -7,6 +7,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest
@@ -93,12 +94,14 @@ class CurrencyRepositoryIntegrationTest {
 
         val exists = currencyRepository.existsById(id).block()
 
+        assertNotNull(exists)
         if (exists != null) assertTrue(exists)
 
         currencyRepository.deleteById(id).block()
 
         val returned = currencyRepository.existsById(id).block()
 
+        assertNotNull(returned)
         if (returned != null) assertFalse(returned)
     }
 }
