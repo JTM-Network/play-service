@@ -17,7 +17,7 @@ import java.util.*
 
 @RunWith(SpringRunner::class)
 @DataMongoTest
-class CurrencyRepositoryIntegrationTest {
+class CurrencyIntegrationTest {
 
     @Autowired
     lateinit var currencyRepository: CurrencyRepository
