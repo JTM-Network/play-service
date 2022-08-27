@@ -20,17 +20,17 @@ import java.util.*
 class TransactionController @Autowired constructor(private val transactionService: TransactionService) {
 
     @PostMapping
-    fun postTransaction(@RequestBody transaction: Transaction): Mono<Transaction> = Mono.empty()
+    fun postTransaction(@RequestBody transaction: Transaction): Mono<Transaction> = transactionService.insertTransaction(transaction)
 
     @PutMapping
-    fun putTransaction(@RequestBody transaction: Transaction): Mono<Transaction> = Mono.empty()
+    fun putTransaction(@RequestBody transaction: Transaction): Mono<Transaction> = transactionService.updateTransaction(transaction)
 
     @GetMapping("/{id}")
-    fun getTransaction(@PathVariable id: UUID): Mono<Transaction> = Mono.empty()
+    fun getTransaction(@PathVariable id: UUID): Mono<Transaction> = transactionService.getTransaction(id)
 
     @GetMapping("/all")
-    fun getTransactions(): Flux<Transaction> = Flux.empty()
+    fun getTransactions(): Flux<Transaction> = transactionService.getTransactions()
 
     @DeleteMapping("/{id}")
-    fun deleteTransaction(@PathVariable id: UUID): Mono<Transaction> = Mono.empty()
+    fun deleteTransaction(@PathVariable id: UUID): Mono<Transaction> = transactionService.removeTransactions(id)
 }
