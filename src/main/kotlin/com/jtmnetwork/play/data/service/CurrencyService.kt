@@ -1,23 +1,41 @@
 package com.jtmnetwork.play.data.service
 
 import com.jtmnetwork.play.core.domain.entity.Currency
+import com.jtmnetwork.play.core.domain.exception.currency.CurrencyFound
+import com.jtmnetwork.play.core.domain.exception.currency.CurrencyNotFound
 import com.jtmnetwork.play.core.usecase.repository.CurrencyRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
+import java.util.UUID
 
 @Service
 class CurrencyService @Autowired constructor(private val currencyRepository: CurrencyRepository) {
 
-    fun insertCurrency(currency: Currency): Mono<Currency> = Mono.empty()
+    fun insertCurrency(currency: Currency): Mono<Currency> {
+        return currencyRepository.findByName(currency.name)
+            .flatMap<Currency> { Mono.error(CurrencyFound()) }
+            .switchIfEmpty(Mono.defer { currencyRepository.save(currency) })
+    }
 
-    fun updateCurrency(currency: Currency): Mono<Currency> = Mono.empty()
+    fun updateCurrency(currency: Currency): Mono<Currency> {
+        return currencyRepository.findById(currency.id)
+            .switchIfEmpty(Mono.defer { Mono.error(CurrencyNotFound()) })
+            .flatMap { currencyRepository.save(currency) }
+    }
 
-    fun getCurrency(): Mono<Currency> = Mono.empty()
+    fun getCurrency(id: UUID): Mono<Currency> {
+        return currencyRepository.findById(id)
+            .switchIfEmpty(Mono.defer { Mono.error(CurrencyNotFound()) })
+    }
 
-    fun getCurrencies(): Flux<Currency> = Flux.empty()
+    fun getCurrencies(): Flux<Currency> = currencyRepository.findAll()
 
-    fun removeCurrency(): Mono<Currency> = Mono.empty()
+    fun removeCurrency(id: UUID): Mono<Currency> {
+        return currencyRepository.findById(id)
+            .switchIfEmpty(Mono.defer { Mono.error(CurrencyNotFound()) })
+            .flatMap { currencyRepository.delete(it).thenReturn(it) }
+    }
 }
 
