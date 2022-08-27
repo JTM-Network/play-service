@@ -20,17 +20,17 @@ import java.util.*
 class CurrencyController @Autowired constructor(private val currencyService: CurrencyService) {
 
     @PostMapping
-    fun postCurrency(@RequestBody currency: Currency): Mono<Currency> = Mono.empty()
+    fun postCurrency(@RequestBody currency: Currency): Mono<Currency> = currencyService.insertCurrency(currency)
 
     @PutMapping
-    fun putCurrency(@RequestBody currency: Currency): Mono<Currency> = Mono.empty()
+    fun putCurrency(@RequestBody currency: Currency): Mono<Currency> = currencyService.updateCurrency(currency)
 
     @GetMapping("/{id}")
-    fun getCurrency(@PathVariable id: UUID): Mono<Currency> = Mono.empty()
+    fun getCurrency(@PathVariable id: UUID): Mono<Currency> = currencyService.getCurrency(id)
 
     @GetMapping("/all")
-    fun getCurrencies(): Flux<Currency> = Flux.empty()
+    fun getCurrencies(): Flux<Currency> = currencyService.getCurrencies()
 
     @DeleteMapping("/{id}")
-    fun deleteCurrency(@PathVariable id: UUID): Mono<Currency> = Mono.empty()
+    fun deleteCurrency(@PathVariable id: UUID): Mono<Currency> = currencyService.removeCurrency(id)
 }
