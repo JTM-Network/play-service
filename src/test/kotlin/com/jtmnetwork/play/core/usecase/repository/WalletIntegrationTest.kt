@@ -15,7 +15,7 @@ import java.util.*
 
 @RunWith(SpringRunner::class)
 @DataMongoTest
-class WalletRepositoryIntegrationTest {
+class WalletIntegrationTest {
 
     @Autowired
     lateinit var walletRepository: WalletRepository
