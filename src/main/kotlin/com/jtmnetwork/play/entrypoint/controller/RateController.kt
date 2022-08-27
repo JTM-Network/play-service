@@ -20,17 +20,17 @@ import java.util.UUID
 class RateController @Autowired constructor(private val rateService: RateService) {
 
     @PostMapping
-    fun postRate(@RequestBody rate: ExchangeRate): Mono<ExchangeRate> = Mono.empty()
+    fun postRate(@RequestBody rate: ExchangeRate): Mono<ExchangeRate> = rateService.insertRate(rate)
 
     @PutMapping
-    fun putRate(@RequestBody rate: ExchangeRate): Mono<ExchangeRate> = Mono.empty()
+    fun putRate(@RequestBody rate: ExchangeRate): Mono<ExchangeRate> = rateService.updateRate(rate)
 
     @GetMapping("/{id}")
-    fun getRate(@PathVariable id: UUID): Mono<ExchangeRate> = Mono.empty()
+    fun getRate(@PathVariable id: UUID): Mono<ExchangeRate> = rateService.getRate(id)
 
     @GetMapping("/all")
-    fun getRates(): Flux<ExchangeRate> = Flux.empty()
+    fun getRates(): Flux<ExchangeRate> = rateService.getRates()
 
     @DeleteMapping("/{id}")
-    fun deleteRate(@PathVariable id: UUID): Mono<ExchangeRate> = Mono.empty()
+    fun deleteRate(@PathVariable id: UUID): Mono<ExchangeRate> = rateService.removeRate(id)
 }
