@@ -19,17 +19,17 @@ import reactor.core.publisher.Mono
 class WalletController @Autowired constructor(private val walletService: WalletService) {
 
     @PostMapping
-    fun postWallet(@RequestBody wallet: Wallet): Mono<Wallet> = Mono.empty()
+    fun postWallet(@RequestBody wallet: Wallet): Mono<Wallet> = walletService.insertWallet(wallet)
 
     @PutMapping
-    fun putWallet(@RequestBody wallet: Wallet): Mono<Wallet> = Mono.empty()
+    fun putWallet(@RequestBody wallet: Wallet): Mono<Wallet> = walletService.updateWallet(wallet)
 
     @GetMapping("/{id}")
-    fun getWallet(@PathVariable id: String): Mono<Wallet> = Mono.empty()
+    fun getWallet(@PathVariable id: String): Mono<Wallet> = walletService.getWallet(id)
 
     @GetMapping("/all")
-    fun getWallets(): Flux<Wallet> = Flux.empty()
+    fun getWallets(): Flux<Wallet> = walletService.getWallets()
 
     @DeleteMapping("/{id}")
-    fun deleteWallet(@PathVariable id: String): Mono<Wallet> = Mono.empty()
+    fun deleteWallet(@PathVariable id: String): Mono<Wallet> = walletService.removeWallet(id)
 }
