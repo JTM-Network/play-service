@@ -96,6 +96,21 @@ class WalletControllerUnitTest {
     }
 
     @Test
+    fun searchWallets() {
+        `when`(walletService.searchWallets(anyString())).thenReturn(Flux.just(created))
+
+        testClient.get()
+            .uri("/wallet/search/te")
+            .exchange()
+            .expectStatus().isOk
+            .expectBody()
+            .jsonPath("$[0].id").isEqualTo(id)
+
+        verify(walletService, times(1)).searchWallets(anyString())
+        verifyNoMoreInteractions(walletService)
+    }
+
+    @Test
     fun deleteWallet() {
         `when`(walletService.removeWallet(anyString())).thenReturn(Mono.just(created))
 
