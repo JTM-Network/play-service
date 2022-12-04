@@ -129,6 +129,33 @@ class WalletServiceUnitTest {
     }
 
     @Test
+    fun searchWallets_shouldReturnEmpty_whenSearching() {
+        `when`(walletRepository.findByNameStartsWith(anyString())).thenReturn(Flux.empty())
+
+        val returned = walletService.searchWallets("test")
+
+        verify(walletRepository, times(1)).findByNameStartsWith(anyString())
+        verifyNoMoreInteractions(walletRepository)
+
+        StepVerifier.create(returned)
+            .verifyComplete()
+    }
+
+    @Test
+    fun searchWallets_shouldReturnWallet_whenSearching() {
+        `when`(walletRepository.findByNameStartsWith(anyString())).thenReturn(Flux.just(created))
+
+        val returned = walletService.searchWallets("test")
+
+        verify(walletRepository, times(1)).findByNameStartsWith(anyString())
+        verifyNoMoreInteractions(walletRepository)
+
+        StepVerifier.create(returned)
+            .assertNext { TestUtil.assertWallet(id, it) }
+            .verifyComplete()
+    }
+
+    @Test
     fun removeWallet_shouldThrowNotFound() {
         `when`(walletRepository.findById(anyString())).thenReturn(Mono.empty())
 
