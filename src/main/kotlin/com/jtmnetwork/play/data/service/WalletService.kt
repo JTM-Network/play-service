@@ -32,7 +32,7 @@ class WalletService @Autowired constructor(private val walletRepository: WalletR
     fun getWallets(): Flux<Wallet> = walletRepository.findAll()
 
     fun searchWallets(name: String): Flux<Wallet> {
-        return walletRepository.findByNameStartsWith(name)
+        return walletRepository.findByNameStartsWithIgnoreCaseOrderByNameDesc(name)
     }
 
     fun removeWallet(id: String): Mono<Wallet> {

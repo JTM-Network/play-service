@@ -11,5 +11,5 @@ interface WalletRepository: ReactiveMongoRepository<Wallet, String> {
 
     fun findByName(name: String): Mono<Wallet>
 
-    fun findByNameStartsWith(name: String): Flux<Wallet>
+    fun findByNameStartsWithIgnoreCaseOrderByNameDesc(name: String): Flux<Wallet>
 }

@@ -130,11 +130,11 @@ class WalletServiceUnitTest {
 
     @Test
     fun searchWallets_shouldReturnEmpty_whenSearching() {
-        `when`(walletRepository.findByNameStartsWith(anyString())).thenReturn(Flux.empty())
+        `when`(walletRepository.findByNameStartsWithIgnoreCaseOrderByNameDesc(anyString())).thenReturn(Flux.empty())
 
         val returned = walletService.searchWallets("test")
 
-        verify(walletRepository, times(1)).findByNameStartsWith(anyString())
+        verify(walletRepository, times(1)).findByNameStartsWithIgnoreCaseOrderByNameDesc(anyString())
         verifyNoMoreInteractions(walletRepository)
 
         StepVerifier.create(returned)
@@ -143,11 +143,11 @@ class WalletServiceUnitTest {
 
     @Test
     fun searchWallets_shouldReturnWallet_whenSearching() {
-        `when`(walletRepository.findByNameStartsWith(anyString())).thenReturn(Flux.just(created))
+        `when`(walletRepository.findByNameStartsWithIgnoreCaseOrderByNameDesc(anyString())).thenReturn(Flux.just(created))
 
         val returned = walletService.searchWallets("test")
 
-        verify(walletRepository, times(1)).findByNameStartsWith(anyString())
+        verify(walletRepository, times(1)).findByNameStartsWithIgnoreCaseOrderByNameDesc(anyString())
         verifyNoMoreInteractions(walletRepository)
 
         StepVerifier.create(returned)
