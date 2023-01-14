@@ -1,6 +1,6 @@
 package com.jtmnetwork.play.data.service.experience
 
-import com.jtmnetwork.play.core.domain.entity.experience.ExperienceProfile
+import com.jtmnetwork.play.core.domain.entity.experience.XPProfile
 import com.jtmnetwork.play.core.domain.exception.profile.ProfileFound
 import com.jtmnetwork.play.core.domain.exception.profile.ProfileNotFound
 import com.jtmnetwork.play.core.usecase.repository.experience.XPProfileRepository
@@ -20,9 +20,9 @@ class XPProfileService @Autowired constructor(private val profileRepository: XPP
      *
      * @return the inserted profile, throws [ProfileFound] if the profile already exists
      */
-    fun insertProfile(profile: ExperienceProfile): Mono<ExperienceProfile> {
+    fun insertProfile(profile: XPProfile): Mono<XPProfile> {
         return profileRepository.findById(profile.id)
-            .flatMap<ExperienceProfile> { Mono.error(ProfileFound()) }
+            .flatMap<XPProfile> { Mono.error(ProfileFound()) }
             .switchIfEmpty(Mono.defer { profileRepository.save(profile) })
     }
 
@@ -33,7 +33,7 @@ class XPProfileService @Autowired constructor(private val profileRepository: XPP
      *
      * @return the updated profile, throws [ProfileNotFound] if the profile is not found
      */
-    fun updateProfile(profile: ExperienceProfile): Mono<ExperienceProfile> {
+    fun updateProfile(profile: XPProfile): Mono<XPProfile> {
         return profileRepository.findById(profile.id)
             .switchIfEmpty(Mono.defer { Mono.error(ProfileNotFound()) })
             .flatMap { profileRepository.save(profile) }
@@ -46,7 +46,7 @@ class XPProfileService @Autowired constructor(private val profileRepository: XPP
      *
      * @return the experience profile, throws [ProfileNotFound] if not found
      */
-    fun getProfile(id: UUID): Mono<ExperienceProfile> {
+    fun getProfile(id: UUID): Mono<XPProfile> {
         return profileRepository.findById(id)
             .switchIfEmpty(Mono.defer { Mono.error(ProfileNotFound()) })
     }
@@ -56,7 +56,7 @@ class XPProfileService @Autowired constructor(private val profileRepository: XPP
      *
      * @return all experience profiles
      */
-    fun getProfiles(): Flux<ExperienceProfile> = profileRepository.findAll()
+    fun getProfiles(): Flux<XPProfile> = profileRepository.findAll()
 
     /**
      * Delete the experience profile by the player's UUID
@@ -65,7 +65,7 @@ class XPProfileService @Autowired constructor(private val profileRepository: XPP
      *
      * @return the deleted experience profile, throws [ProfileNotFound] if not found
      */
-    fun removeProfile(id: UUID): Mono<ExperienceProfile> {
+    fun removeProfile(id: UUID): Mono<XPProfile> {
         return profileRepository.findById(id)
             .switchIfEmpty(Mono.defer { Mono.error(ProfileNotFound()) })
             .flatMap { profileRepository.delete(it).thenReturn(it) }

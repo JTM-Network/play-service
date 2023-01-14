@@ -4,8 +4,8 @@ import com.jtmnetwork.play.core.domain.entity.economy.Currency
 import com.jtmnetwork.play.core.domain.entity.economy.ExchangeRate
 import com.jtmnetwork.play.core.domain.entity.economy.Transaction
 import com.jtmnetwork.play.core.domain.entity.economy.Wallet
-import com.jtmnetwork.play.core.domain.entity.experience.ExperienceProfile
-import com.jtmnetwork.play.core.domain.model.experience.ExperienceBalance
+import com.jtmnetwork.play.core.domain.entity.experience.XPProfile
+import com.jtmnetwork.play.core.domain.model.experience.XPBalance
 import org.assertj.core.api.Assertions.assertThat
 import java.util.UUID
 
@@ -35,10 +35,10 @@ class TestUtil {
             return Transaction(id = id)
         }
 
-        fun createXPProfile(id: UUID): ExperienceProfile {
-            val balances: MutableMap<UUID, ExperienceBalance> = HashMap()
-            balances[UUID.randomUUID()] = ExperienceBalance(0, 0)
-            return ExperienceProfile(id, "Joe", balances, System.currentTimeMillis())
+        fun createXPProfile(id: UUID): XPProfile {
+            val balances: MutableMap<UUID, XPBalance> = HashMap()
+            balances[UUID.randomUUID()] = XPBalance(0, 0)
+            return XPProfile(id, "Joe", balances, System.currentTimeMillis())
         }
 
         fun assertTransaction(id: UUID, assert: Transaction) {
@@ -53,7 +53,7 @@ class TestUtil {
             assertThat(assert.id).isEqualTo(id)
         }
 
-        fun assertXPProfile(id: UUID, assert: ExperienceProfile) {
+        fun assertXPProfile(id: UUID, assert: XPProfile) {
             assertThat(assert.id).isEqualTo(id)
             assertThat(assert.name).isEqualTo("Joe")
         }

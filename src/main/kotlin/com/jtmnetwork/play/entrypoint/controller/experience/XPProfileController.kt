@@ -1,6 +1,6 @@
 package com.jtmnetwork.play.entrypoint.controller.experience
 
-import com.jtmnetwork.play.core.domain.entity.experience.ExperienceProfile
+import com.jtmnetwork.play.core.domain.entity.experience.XPProfile
 import com.jtmnetwork.play.data.service.experience.XPProfileService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -20,17 +20,17 @@ import java.util.UUID
 class XPProfileController @Autowired constructor(private val profileService: XPProfileService) {
 
     @PostMapping
-    fun postProfile(@RequestBody profile: ExperienceProfile): Mono<ExperienceProfile> = profileService.insertProfile(profile)
+    fun postProfile(@RequestBody profile: XPProfile): Mono<XPProfile> = profileService.insertProfile(profile)
 
     @PutMapping
-    fun putProfile(@RequestBody profile: ExperienceProfile): Mono<ExperienceProfile> = profileService.updateProfile(profile)
+    fun putProfile(@RequestBody profile: XPProfile): Mono<XPProfile> = profileService.updateProfile(profile)
 
     @GetMapping("/{id}")
-    fun getProfile(@PathVariable id: UUID): Mono<ExperienceProfile> = profileService.getProfile(id)
+    fun getProfile(@PathVariable id: UUID): Mono<XPProfile> = profileService.getProfile(id)
 
     @GetMapping("/all")
-    fun getProfiles(): Flux<ExperienceProfile> = profileService.getProfiles()
+    fun getProfiles(): Flux<XPProfile> = profileService.getProfiles()
 
     @DeleteMapping("/{id}")
-    fun deleteProfile(@PathVariable id: UUID): Mono<ExperienceProfile> = profileService.removeProfile(id)
+    fun deleteProfile(@PathVariable id: UUID): Mono<XPProfile> = profileService.removeProfile(id)
 }

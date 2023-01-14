@@ -6,4 +6,4 @@ import org.springframework.data.mongodb.core.mapping.Document
 import java.util.UUID
 
 @Document("experience_logs")
-data class ExperienceLog(@Id val id: Int, val player: UUID, val action: ExperienceAction, val amount: Int, val metadata: String, val created: Long)
+data class XPLog(@Id val id: Int, val player: UUID, val action: ExperienceAction, val amount: Int, val metadata: String, val created: Long)
