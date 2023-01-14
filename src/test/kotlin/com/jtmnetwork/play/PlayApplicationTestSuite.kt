@@ -9,6 +9,7 @@ import com.jtmnetwork.play.data.service.economy.CurrencyServiceUnitTest
 import com.jtmnetwork.play.data.service.economy.RateServiceUnitTest
 import com.jtmnetwork.play.data.service.economy.TransactionServiceUnitTest
 import com.jtmnetwork.play.data.service.economy.WalletServiceUnitTest
+import com.jtmnetwork.play.data.service.experience.XPProfileServiceUnitTest
 import com.jtmnetwork.play.entrypoint.controller.economy.CurrencyControllerUnitTest
 import com.jtmnetwork.play.entrypoint.controller.economy.RateControllerUnitTest
 import com.jtmnetwork.play.entrypoint.controller.economy.TransactionControllerUnitTest
@@ -34,6 +35,7 @@ import org.junit.runners.Suite.SuiteClasses
     WalletControllerUnitTest::class,
     RateControllerUnitTest::class,
 
-    XPProfileRepositoryIntegrationTest::class
+    XPProfileRepositoryIntegrationTest::class,
+    XPProfileServiceUnitTest::class,
 ])
 class PlayApplicationTestSuite
