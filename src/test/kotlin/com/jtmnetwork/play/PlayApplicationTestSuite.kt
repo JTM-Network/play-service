@@ -14,6 +14,7 @@ import com.jtmnetwork.play.entrypoint.controller.economy.CurrencyControllerUnitT
 import com.jtmnetwork.play.entrypoint.controller.economy.RateControllerUnitTest
 import com.jtmnetwork.play.entrypoint.controller.economy.TransactionControllerUnitTest
 import com.jtmnetwork.play.entrypoint.controller.economy.WalletControllerUnitTest
+import com.jtmnetwork.play.entrypoint.controller.experience.XPProfileControllerUnitTest
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
 import org.junit.runners.Suite.SuiteClasses
@@ -37,5 +38,6 @@ import org.junit.runners.Suite.SuiteClasses
 
     XPProfileRepositoryIntegrationTest::class,
     XPProfileServiceUnitTest::class,
+    XPProfileControllerUnitTest::class
 ])
 class PlayApplicationTestSuite

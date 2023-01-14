@@ -23,7 +23,7 @@ class XPProfileService @Autowired constructor(private val profileRepository: XPP
     fun insertProfile(profile: ExperienceProfile): Mono<ExperienceProfile> {
         return profileRepository.findById(profile.id)
             .flatMap<ExperienceProfile> { Mono.error(ProfileFound()) }
-            .switchIfEmpty(profileRepository.save(profile))
+            .switchIfEmpty(Mono.defer { profileRepository.save(profile) })
     }
 
     /**
